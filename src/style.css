@@ -3,7 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+p,span{
+  color: #fff;
+}
 body {
   background: #000;
   overflow: hidden;
@@ -36,7 +38,25 @@ body {
 .intro-text .char {
   display: inline-block;
   opacity: 0;
+  z-index: 10005;
 }
+.char {
+  display: inline-block;
+  z-index: 10005;
+  color: #fff; /* garantit que les lettres sont visibles */
+  /* transform: translateY(40px); initiale pour l'animation */
+}
+.word {
+  display: inline-block;
+  overflow: hidden;
+  color: #fff;
+  z-index: 10005;
+  transform: translateY(15px);
+}
+.intro-screen {
+  opacity: 1;
+}
+
 
 /* Main Content - Hidden initially */
 .main-content {
