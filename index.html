@@ -8,41 +8,48 @@
   </head>
   <body>
     <div id="app"></div>
-    <div class="cursor"></div>
-    <div class="info">Move your mouse to reveal the <span>image trail</span></div>
+    <!-- Intro Screen -->
+    <div class="intro-screen">
+      <h1 class="intro-text">Welcome to my experience</h1>
+  </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <div class="controls">
-      <h3>Controls</h3>
+  <!-- Main Content -->
+  <div class="main-content">
+      <div class="cursor"></div>
+      <div class="info">Move your mouse to reveal the <span>image trail</span></div>
       
-      <div class="control-group">
-          <label>
-              Espacement: <span class="value" id="spacingValue">100ms</span>
-          </label>
-          <input type="range" id="spacing" min="50" max="300" value="100" step="10">
-      </div>
-      
-      <div class="control-group">
-          <label>
-              Vitesse d'apparition: <span class="value" id="appearValue">0.5s</span>
-          </label>
-          <input type="range" id="appearSpeed" min="0.1" max="1.5" value="0.5" step="0.1">
-      </div>
-      
-      <div class="control-group">
-          <label>
-              Vitesse de disparition: <span class="value" id="disappearValue">0.5s</span>
-          </label>
-          <input type="range" id="disappearSpeed" min="0.1" max="2" value="0.5" step="0.1">
-      </div>
-      
-      <div class="control-group">
-          <label>
-              Délai avant disparition: <span class="value" id="delayValue">0.8s</span>
-          </label>
-          <input type="range" id="disappearDelay" min="0" max="2" value="0.8" step="0.1">
+      <div class="controls">
+          <h3>Controls</h3>
+          
+          <div class="control-group">
+              <label>
+                  Espacement: <span class="value" id="spacingValue">100ms</span>
+              </label>
+              <input type="range" id="spacing" min="50" max="300" value="100" step="10">
+          </div>
+          
+          <div class="control-group">
+              <label>
+                  Vitesse d'apparition: <span class="value" id="appearValue">0.5s</span>
+              </label>
+              <input type="range" id="appearSpeed" min="0.1" max="1.5" value="0.5" step="0.1">
+          </div>
+          
+          <div class="control-group">
+              <label>
+                  Vitesse de disparition: <span class="value" id="disappearValue">0.5s</span>
+              </label>
+              <input type="range" id="disappearSpeed" min="0.1" max="2" value="0.5" step="0.1">
+          </div>
+          
+          <div class="control-group">
+              <label>
+                  Délai avant disparition: <span class="value" id="delayValue">0.8s</span>
+              </label>
+              <input type="range" id="disappearDelay" min="0" max="2" value="0.8" step="0.1">
+          </div>
       </div>
   </div>
-    <script type="module" src="/src/main.js"></script>
+      <script type="module" src="/src/main.js"></script>
   </body>
 </html>

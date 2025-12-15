@@ -11,6 +11,44 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
+/* Intro Screen */
+.intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+}
+
+.intro-text {
+  color: #fff;
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.intro-text .char {
+  display: inline-block;
+  opacity: 0;
+}
+
+/* Main Content - Hidden initially */
+.main-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.main-content.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .cursor {
   position: fixed;
   width: 20px;
