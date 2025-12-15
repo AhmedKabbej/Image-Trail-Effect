@@ -1,24 +1,136 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+// Configuration - Images depuis le dossier public
+const totalImages = 10; // Nombre total d'images (img1.png à img10.png)
+const images = Array.from({ length: totalImages }, (_, i) => `/img${i + 1}.jpg`);
 
-setupCounter(document.querySelector('#counter'))
+const cursor = document.querySelector('.cursor');
+let mouseX = 0;
+let mouseY = 0;
+let currentImageIndex = 0;
+let lastTime = 0;
+
+// Settings controllables
+let throttleDelay = 100; // milliseconds between trail spawns
+let appearSpeed = 0.5;
+let disappearSpeed = 0.5;
+let disappearDelay = 0.8;
+
+// GUI Controls
+const spacingSlider = document.getElementById('spacing');
+const appearSlider = document.getElementById('appearSpeed');
+const disappearSlider = document.getElementById('disappearSpeed');
+const delaySlider = document.getElementById('disappearDelay');
+
+const spacingValue = document.getElementById('spacingValue');
+const appearValue = document.getElementById('appearValue');
+const disappearValue = document.getElementById('disappearValue');
+const delayValue = document.getElementById('delayValue');
+
+spacingSlider.addEventListener('input', (e) => {
+    throttleDelay = parseInt(e.target.value);
+    spacingValue.textContent = `${throttleDelay}ms`;
+});
+
+appearSlider.addEventListener('input', (e) => {
+    appearSpeed = parseFloat(e.target.value);
+    appearValue.textContent = `${appearSpeed}s`;
+});
+
+disappearSlider.addEventListener('input', (e) => {
+    disappearSpeed = parseFloat(e.target.value);
+    disappearValue.textContent = `${disappearSpeed}s`;
+});
+
+delaySlider.addEventListener('input', (e) => {
+    disappearDelay = parseFloat(e.target.value);
+    delayValue.textContent = `${disappearDelay}s`;
+});
+
+// Custom cursor follow
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    gsap.to(cursor, {
+        x: mouseX,
+        y: mouseY,
+        duration: 0.3,
+        ease: 'power2.out'
+    });
+
+    // Throttled image trail creation
+    const currentTime = Date.now();
+    if (currentTime - lastTime > throttleDelay) {
+        createTrailImage(mouseX, mouseY);
+        lastTime = currentTime;
+    }
+});
+
+document.addEventListener('mousedown', () => {
+    cursor.classList.add('active');
+});
+
+document.addEventListener('mouseup', () => {
+    cursor.classList.remove('active');
+});
+
+function createTrailImage(x, y) {
+    const trailImg = document.createElement('div');
+    trailImg.className = 'trail-image';
+    
+    const img = document.createElement('img');
+    img.src = images[currentImageIndex];
+    trailImg.appendChild(img);
+    
+    document.body.appendChild(trailImg);
+
+    // Cycle through images
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+
+    // Random rotation
+    const rotation = (Math.random() - 0.5) * 30;
+    
+    // Set initial position
+    gsap.set(trailImg, {
+        x: x,
+        y: y,
+        rotation: rotation
+    });
+
+    // Animate in and out
+    const tl = gsap.timeline({
+        onComplete: () => trailImg.remove()
+    });
+
+    tl.to(trailImg, {
+        scale: 1,
+        opacity: 1,
+        duration: appearSpeed,
+        ease: 'back.out(1.7)'
+    })
+    .to(trailImg, {
+        scale: 0.8,
+        opacity: 0,
+        duration: disappearSpeed,
+        delay: disappearDelay,
+        ease: 'power2.in'
+    });
+
+    // Slight float animation
+    gsap.to(trailImg, {
+        y: y - 30,
+        duration: appearSpeed + disappearSpeed + disappearDelay,
+        ease: 'power1.out'
+    });
+}
+
+// Preload images
+function preloadImages() {
+    images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
+
+preloadImages();
