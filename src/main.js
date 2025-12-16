@@ -8,7 +8,7 @@ function initIntro() {
     const mainContent = document.querySelector('.main-content');
 
     const baseText = 'Welcome to my '; 
-    const words = ['experience', 'image-trial'];
+    const words = ['experience', 'imagetrial'];
     let wordIndex = 0;
 
     // Crée un span par lettre
@@ -89,6 +89,47 @@ function initIntro() {
     });
 }
 
+
+
+ // Settings controllables
+ let throttleDelay = 100; // milliseconds between trail spawns
+ let appearSpeed = 0.5;
+ let disappearSpeed = 0.5;
+ let disappearDelay = 0.8;
+
+ // GUI Controls
+ const spacingSlider = document.getElementById('spacing');
+ const appearSlider = document.getElementById('appearSpeed');
+ const disappearSlider = document.getElementById('disappearSpeed');
+ const delaySlider = document.getElementById('disappearDelay');
+ 
+ const spacingValue = document.getElementById('spacingValue');
+ const appearValue = document.getElementById('appearValue');
+ const disappearValue = document.getElementById('disappearValue');
+ const delayValue = document.getElementById('delayValue');
+
+ spacingSlider.addEventListener('input', (e) => {
+     throttleDelay = parseInt(e.target.value);
+     spacingValue.textContent = `${throttleDelay}ms`;
+ });
+
+ appearSlider.addEventListener('input', (e) => {
+     appearSpeed = parseFloat(e.target.value);
+     appearValue.textContent = `${appearSpeed}s`;
+ });
+
+ disappearSlider.addEventListener('input', (e) => {
+     disappearSpeed = parseFloat(e.target.value);
+     disappearValue.textContent = `${disappearSpeed}s`;
+ });
+
+ delaySlider.addEventListener('input', (e) => {
+     disappearDelay = parseFloat(e.target.value);
+     delayValue.textContent = `${disappearDelay}s`;
+ });
+
+
+
 // --- Expérience principale ---
 function initMainExperience() {
     const totalImages = 10;
@@ -97,7 +138,7 @@ function initMainExperience() {
     const cursor = document.querySelector('.cursor');
     let mouseX = 0, mouseY = 0, currentImageIndex = 0, lastTime = 0;
     let throttleDelay = 100, appearSpeed = 0.5, disappearSpeed = 0.5, disappearDelay = 0.8;
-
+    
     document.addEventListener('mousemove', e => {
         mouseX = e.clientX;
         mouseY = e.clientY;
