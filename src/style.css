@@ -5,8 +5,6 @@
   cursor: none;
 }
 
-
-
 p,
 span {
   color: #fff;
@@ -51,8 +49,6 @@ body {
   display: inline-block;
   z-index: 10005;
   color: #fff;
-  /* garantit que les lettres sont visibles */
-  /* transform: translateY(40px); initiale pour l'animation */
 }
 
 .word {
@@ -68,7 +64,7 @@ body {
 }
 
 
-/* Main Content - Hidden initially */
+/* Main Content - Hidden de base */
 .main-content {
   opacity: 0;
   pointer-events: none;
